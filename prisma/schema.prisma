@@ -11,9 +11,9 @@ datasource db {
 }
 
 model users {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  user_name String
-  password  String
-  create_at DateTime @default(now())
-  update_at DateTime @updatedAt
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_name    String
+  passwordHash String
+  create_at    DateTime @default(now())
+  update_at    DateTime @updatedAt
 }
