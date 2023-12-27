@@ -73,7 +73,19 @@ export class AuthService {
     });
   }
 
-  logOut() {}
+  async logOut(userId: number) {
+    return await this.prismaService.users.updateMany({
+      where: {
+        id: userId,
+        refresh_token: {
+          not: null,
+        },
+      },
+      data: {
+        refresh_token: null,
+      },
+    });
+  }
 
   refeshToken() {}
 }
