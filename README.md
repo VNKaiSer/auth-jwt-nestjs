@@ -24,12 +24,43 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Auth with JWT.
+Asscess token and refresh token.
+Author: Kaiser Vo
 
 ## Installation
 
+Clone this app
+
+```bash
+$ git clone https://github.com/vnkaiser/auth-jwt-nestjs.git
+$ cd auth-jwt-nestjs
+```
+
+Install docker and start the app
+
+```bash
+$ docker-compose up
+```
+
+Install dependencies
+
 ```bash
 $ yarn install
+```
+
+Prisma generate database
+
+- If you run the app for the first time
+
+```bash
+$ yarn prisma db push
+```
+
+- If you run the app for the second time
+
+```bash
+$ yarn prisma generate
 ```
 
 ## Running the app
@@ -64,10 +95,23 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Kaiser Vo](https://github.com/VNKaiser)
 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Techniques
+
+- Framework: NestJs
+- Docker
+- Database: PostgreSQL
+- Server: Fastify
+- CLI: Nest CLI
+- Tool: Postman or [Swagger UI](http://localhost/api)
+
+## Thanks
+
+- Thank you to all the contributors for their work.
+- If you like this repo, please star this repo.
+- If you have any questions, please feel free to [open an issue](https://github.com/vnkaiser/auth-jwt-nestjs/issues)
