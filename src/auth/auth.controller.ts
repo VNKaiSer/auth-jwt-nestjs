@@ -1,27 +1,12 @@
-import { FastifyRequest } from 'fastify';
 import {
   Body,
   Controller,
-  Global,
-  Header,
   HttpCode,
   HttpStatus,
-  Param,
-  ParseIntPipe,
   Post,
-  Query,
-  Req,
-  Res,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBody,
-  ApiTags,
-  ApiProperty,
-  ApiBearerAuth,
-  ApiHeader,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { Tokens } from './types';
@@ -68,7 +53,6 @@ export class AuthController {
     @GetCurentUserId() id: number,
     @GetCurrentUser('refreshToken') rt: string,
   ) {
-    console.log(rt);
     return this.authService.refeshToken(id['sub'], rt);
   }
 }
