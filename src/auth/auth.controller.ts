@@ -2,6 +2,7 @@ import { Body, Controller, Global, Post } from '@nestjs/common';
 import { ApiBody, ApiTags, ApiProperty } from '@nestjs/swagger';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
+import { Tokens } from './types';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -15,7 +16,7 @@ export class AuthController {
 
   @Post('/sign-up')
   @ApiBody({ type: AuthDto })
-  signUp(@Body() body: AuthDto) {
+  signUp(@Body() body: AuthDto): Promise<Tokens> {
     return this.authService.signUp(body);
   }
 

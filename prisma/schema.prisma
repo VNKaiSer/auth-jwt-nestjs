@@ -11,9 +11,10 @@ datasource db {
 }
 
 model users {
-  id           Int      @id @default(autoincrement())
-  user_name    String
-  passwordHash String
-  create_at    DateTime @default(now())
-  update_at    DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  user_name     String   @unique
+  passwordHash  String
+  refresh_token String?
+  create_at     DateTime @default(now())
+  update_at     DateTime @updatedAt
 }

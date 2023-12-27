@@ -10,6 +10,12 @@ export class RtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     });
   }
   validate(req: FastifyRequest, payload: any) {
-    return payload;
+    const refreshToken = req.headers['authorization']
+      .replace('Bearer', '')
+      .trim();
+    return {
+      ...payload,
+      refreshToken,
+    };
   }
 }
