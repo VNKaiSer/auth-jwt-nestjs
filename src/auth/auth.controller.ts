@@ -10,6 +10,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -25,11 +26,15 @@ import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { Tokens } from './types';
 import { AuthGuard } from '@nestjs/passport';
+import { AtGuard, RtGuard } from './common/guards';
+import { GetCurrentUser, GetCurentUserId, Public } from './common/decorators';
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @Public()
   @Post('/sign-in')
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: AuthDto })
@@ -44,22 +49,26 @@ export class AuthController {
     return this.authService.signUp(body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AtGuard)
   @Post('/log-out')
   @HttpCode(HttpStatus.OK)
   // @ApiHeader({ name: 'Authorization', description: 'Bearer' })
   @ApiQuery({ name: 'id', type: Number })
   @ApiBearerAuth('JWT-auth')
-  logOut(
-    @Query('id', new ParseIntPipe())
-    id: number,
-  ) {
+  logOut(@GetCurentUserId() id: number) {
     console.log(id);
-    return this.authService.logOut(id);
+    return this.authService.logOut(id['sub']);
   }
 
-  @UseGuards(AuthGuard('jwt-refresh'))
+  @Public()
+  @UseGuards(RtGuard)
   @HttpCode(HttpStatus.OK)
-  @Post('/refesh')
-  refeshToken() {}
+  @Post('/refresh')
+  refeshToken(
+    @GetCurentUserId() id: number,
+    @GetCurrentUser('refreshToken') rt: string,
+  ) {
+    console.log(rt);
+    return this.authService.refeshToken(id['sub'], rt);
+  }
 }
